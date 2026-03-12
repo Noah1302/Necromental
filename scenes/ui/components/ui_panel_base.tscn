@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://panelbase123"]
+
+[node name="UIPanelBase" type="PanelContainer"]
+custom_minimum_size = Vector2(600, 400)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -200.0
+offset_right = 300.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 2
+color = Color(0.117647, 0.117647, 0.156863, 0.95)
+
+[node name="Border" type="ReferenceRect" parent="."]
+layout_mode = 2
+border_color = Color(0.584314, 0.286275, 0.796078, 1)
+border_width = 2.0
+editor_only = false
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="TopLevel" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+
+[node name="Header" type="Label" parent="Margin/TopLevel"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.6, 0.9, 1)
+theme_override_font_sizes/font_size = 32
+text = "PANEL TITLE"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="Margin/TopLevel"]
+layout_mode = 2
+
+[node name="Content" type="Control" parent="Margin/TopLevel"]
+layout_mode = 2
+size_flags_vertical = 3
