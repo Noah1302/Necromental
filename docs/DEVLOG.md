@@ -15,3 +15,7 @@
   - `SaveData` für korrekte Persistence via FileAccess gesichert.
   - `GameState` Funktionen für Ressourcen-Spenden und Upgrade-Kauf impl.
   - `MetaUpgrade` Szene ("Ritual Altar") erstellt und ans Main Menu gekoppelt.
+- Incremental Menu Overhaul (Ritual Altar) auf Branch `feature/incremental-upgrade-menu`:
+  - `MetaUpgradeData` Resource eingeführt, um Upgrades datengetrieben zu gestalten (inkl. Kategorien, Tiers, Voraussetzungen).
+  - Dynamisches 3-Spalten-Layout gebaut: Kategorien links, Upgrade-Grid mittig, dynamisches Detail-Panel rechts.
+  - Wiederverwendbare `UpgradeCard` mit Hover-Tweens und Status-Visualisierung (Locked, Available, Purchased) integriert.

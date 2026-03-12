@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="MetaUpgradeData" load_steps=2 format=3 uid="uid://upg_skel_hp_1"]
+
+[ext_resource type="Script" path="res://src/data/meta_upgrade_data.gd" id="1_data"]
+
+[resource]
+script = ExtResource("1_data")
+id = "upg_skel_hp_1"
+title = "Hardened Marrow"
+description = "All Skeleton Guards have their maximum HP increased by 20%, letting them tank more blows."
+category = "Minions"
+tier = 1
+max_level = 1
+cost_corpses = 25
+cost_bone_dust = 10
+cost_soul_essence = 0
+required_upgrade_id = ""
+required_floor_id = ""

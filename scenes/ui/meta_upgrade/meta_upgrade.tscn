@@ -1,7 +1,27 @@
-[gd_scene load_steps=3 format=3 uid="uid://metaupgrade123"]
+[gd_scene load_steps=5 format=3 uid="uid://metaupgrade123"]
 
 [ext_resource type="Script" path="res://scenes/ui/meta_upgrade/meta_upgrade.gd" id="1_meta"]
 [ext_resource type="PackedScene" uid="uid://panelbase123" path="res://scenes/ui/components/ui_panel_base.tscn" id="2_panel"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
+bg_color = Color(0.08, 0.08, 0.1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.2, 0.15, 0.3, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_detail"]
+bg_color = Color(0.12, 0.1, 0.15, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4, 0.3, 0.6, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_left = 8
+corner_radius_bottom_right = 8
 
 [node name="MetaUpgrade" type="Control"]
 layout_mode = 3
@@ -19,17 +39,27 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.0588235, 0.0588235, 0.0784314, 1)
+color = Color(0.04, 0.04, 0.05, 1)
 
 [node name="UIPanelBase" parent="." instance=ExtResource("2_panel")]
 layout_mode = 1
-custom_minimum_size = Vector2(800, 600)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_left = 40.0
+offset_top = 40.0
+offset_right = -40.0
+offset_bottom = -40.0
 
 [node name="Header" parent="UIPanelBase/Margin/TopLevel" index="0"]
 text = "RITUAL ALTAR"
+theme_override_colors/font_color = Color(0.8, 0.6, 0.9, 1)
 
 [node name="Content" parent="UIPanelBase/Margin/TopLevel" index="2"]
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="VBox" type="VBoxContainer" parent="UIPanelBase/Margin/TopLevel/Content"]
 layout_mode = 1
@@ -38,71 +68,187 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 24
+theme_override_constants/separation = 16
 
-[node name="ResourcesHeader" type="HBoxContainer" parent="UIPanelBase/Margin/TopLevel/Content/VBox"]
+[node name="TopBar" type="PanelContainer" parent="UIPanelBase/Margin/TopLevel/Content/VBox"]
 layout_mode = 2
-alignment = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_bg")
 
-[node name="CorpsesLabel" type="Label" parent="UIPanelBase/Margin/TopLevel/Content/VBox/ResourcesHeader"]
-unique_name_in_owner = true
+[node name="Margin" type="MarginContainer" parent="UIPanelBase/Margin/TopLevel/Content/VBox/TopBar"]
 layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.666667, 0.819608, 0.54902, 1)
-text = "Corpses: 0"
-horizontal_alignment = 1
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 10
 
-[node name="BoneDustLabel" type="Label" parent="UIPanelBase/Margin/TopLevel/Content/VBox/ResourcesHeader"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.819608, 0.768627, 0.54902, 1)
-text = "Bone Dust: 0"
-horizontal_alignment = 1
-
-[node name="SoulLabel" type="Label" parent="UIPanelBase/Margin/TopLevel/Content/VBox/ResourcesHeader"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.407843, 0.823529, 0.866667, 1)
-text = "Souls: 0"
-horizontal_alignment = 1
-
-[node name="HSeparator" type="HSeparator" parent="UIPanelBase/Margin/TopLevel/Content/VBox"]
-layout_mode = 2
-
-[node name="UpgradeGrid" type="GridContainer" parent="UIPanelBase/Margin/TopLevel/Content/VBox"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/h_separation = 16
-theme_override_constants/v_separation = 16
-columns = 2
-
-[node name="BtnUpgradeEssence" type="Button" parent="UIPanelBase/Margin/TopLevel/Content/VBox/UpgradeGrid"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(350, 80)
-layout_mode = 2
-text = "+10 Max Essence
-Cost: 10 Corpses"
-
-[node name="BtnUpgradeRegen" type="Button" parent="UIPanelBase/Margin/TopLevel/Content/VBox/UpgradeGrid"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(350, 80)
-layout_mode = 2
-text = "+1 Essence Regen
-Cost: 5 Bone Dust"
-
-[node name="BottomRow" type="HBoxContainer" parent="UIPanelBase/Margin/TopLevel/Content/VBox"]
+[node name="ResourcesHeader" type="HBoxContainer" parent="UIPanelBase/Margin/TopLevel/Content/VBox/TopBar/Margin"]
 layout_mode = 2
 alignment = 1
 theme_override_constants/separation = 64
 
+[node name="CorpsesBox" type="HBoxContainer" parent="UIPanelBase/Margin/TopLevel/Content/VBox/TopBar/Margin/ResourcesHeader"]
+layout_mode = 2
+
+[node name="Icon" type="ColorRect" parent="UIPanelBase/Margin/TopLevel/Content/VBox/TopBar/Margin/ResourcesHeader/CorpsesBox"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+size_flags_vertical = 4
+color = Color(0.666667, 0.819608, 0.54902, 1)
+
+[node name="CorpsesLabel" type="Label" parent="UIPanelBase/Margin/TopLevel/Content/VBox/TopBar/Margin/ResourcesHeader/CorpsesBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.666667, 0.819608, 0.54902, 1)
+theme_override_font_sizes/font_size = 20
+text = "Corpses: 0"
+
+[node name="BoneDustBox" type="HBoxContainer" parent="UIPanelBase/Margin/TopLevel/Content/VBox/TopBar/Margin/ResourcesHeader"]
+layout_mode = 2
+
+[node name="Icon" type="ColorRect" parent="UIPanelBase/Margin/TopLevel/Content/VBox/TopBar/Margin/ResourcesHeader/BoneDustBox"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+size_flags_vertical = 4
+color = Color(0.819608, 0.768627, 0.54902, 1)
+
+[node name="BoneDustLabel" type="Label" parent="UIPanelBase/Margin/TopLevel/Content/VBox/TopBar/Margin/ResourcesHeader/BoneDustBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.819608, 0.768627, 0.54902, 1)
+theme_override_font_sizes/font_size = 20
+text = "Bone Dust: 0"
+
+[node name="SoulBox" type="HBoxContainer" parent="UIPanelBase/Margin/TopLevel/Content/VBox/TopBar/Margin/ResourcesHeader"]
+layout_mode = 2
+
+[node name="Icon" type="ColorRect" parent="UIPanelBase/Margin/TopLevel/Content/VBox/TopBar/Margin/ResourcesHeader/SoulBox"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+size_flags_vertical = 4
+color = Color(0.407843, 0.823529, 0.866667, 1)
+
+[node name="SoulLabel" type="Label" parent="UIPanelBase/Margin/TopLevel/Content/VBox/TopBar/Margin/ResourcesHeader/SoulBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.407843, 0.823529, 0.866667, 1)
+theme_override_font_sizes/font_size = 20
+text = "Souls: 0"
+
+[node name="MainContent" type="HBoxContainer" parent="UIPanelBase/Margin/TopLevel/Content/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 24
+
+[node name="LeftNav" type="PanelContainer" parent="UIPanelBase/Margin/TopLevel/Content/VBox/MainContent"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bg")
+
+[node name="Margin" type="MarginContainer" parent="UIPanelBase/Margin/TopLevel/Content/VBox/MainContent/LeftNav"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="CategoryContainer" type="VBoxContainer" parent="UIPanelBase/Margin/TopLevel/Content/VBox/MainContent/LeftNav/Margin"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="CenterTree" type="ScrollContainer" parent="UIPanelBase/Margin/TopLevel/Content/VBox/MainContent"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_scroll_mode = 0
+
+[node name="UpgradeGrid" type="GridContainer" parent="UIPanelBase/Margin/TopLevel/Content/VBox/MainContent/CenterTree"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 24
+theme_override_constants/v_separation = 24
+columns = 2
+
+[node name="RightDetail" type="PanelContainer" parent="UIPanelBase/Margin/TopLevel/Content/VBox/MainContent"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_detail")
+
+[node name="Margin" type="MarginContainer" parent="UIPanelBase/Margin/TopLevel/Content/VBox/MainContent/RightDetail"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="DetailBox" type="VBoxContainer" parent="UIPanelBase/Margin/TopLevel/Content/VBox/MainContent/RightDetail/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="DetailTitle" type="Label" parent="UIPanelBase/Margin/TopLevel/Content/VBox/MainContent/RightDetail/Margin/DetailBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.85, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "Select an Upgrade"
+horizontal_alignment = 1
+
+[node name="DetailDesc" type="Label" parent="UIPanelBase/Margin/TopLevel/Content/VBox/MainContent/RightDetail/Margin/DetailBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+theme_override_font_sizes/font_size = 14
+text = "Hover or focus an upgrade node to see its details and costs."
+autowrap_mode = 3
+
+[node name="HSeparator" type="HSeparator" parent="UIPanelBase/Margin/TopLevel/Content/VBox/MainContent/RightDetail/Margin/DetailBox"]
+layout_mode = 2
+
+[node name="DetailReq" type="Label" parent="UIPanelBase/Margin/TopLevel/Content/VBox/MainContent/RightDetail/Margin/DetailBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.4, 0.4, 1)
+theme_override_font_sizes/font_size = 14
+text = ""
+autowrap_mode = 3
+
+[node name="DetailCost" type="Label" parent="UIPanelBase/Margin/TopLevel/Content/VBox/MainContent/RightDetail/Margin/DetailBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = ""
+autowrap_mode = 3
+
+[node name="Spacer" type="Control" parent="UIPanelBase/Margin/TopLevel/Content/VBox/MainContent/RightDetail/Margin/DetailBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="BtnPurchase" type="Button" parent="UIPanelBase/Margin/TopLevel/Content/VBox/MainContent/RightDetail/Margin/DetailBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+disabled = true
+text = "PURCHASE"
+
+[node name="BottomRow" type="HBoxContainer" parent="UIPanelBase/Margin/TopLevel/Content/VBox"]
+layout_mode = 2
+alignment = 0
+theme_override_constants/separation = 64
+
 [node name="DebugGrantBtn" type="Button" parent="UIPanelBase/Margin/TopLevel/Content/VBox/BottomRow"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(200, 50)
+custom_minimum_size = Vector2(150, 40)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.352941, 0.352941, 1)
+theme_override_font_sizes/font_size = 14
 text = "DEBUG: +50 All"
+
+[node name="Spacer" type="Control" parent="UIPanelBase/Margin/TopLevel/Content/VBox/BottomRow"]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="BackBtn" type="Button" parent="UIPanelBase/Margin/TopLevel/Content/VBox/BottomRow"]
 unique_name_in_owner = true

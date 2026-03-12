@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="MetaUpgradeData" load_steps=2 format=3 uid="uid://upg_max_essence_1"]
+
+[ext_resource type="Script" path="res://src/data/meta_upgrade_data.gd" id="1_data"]
+
+[resource]
+script = ExtResource("1_data")
+id = "upg_max_essence_1"
+title = "Expanded Vessel"
+description = "Increases maximum Essence capacity by 10, allowing for larger summons or holding more reserves."
+category = "Essence"
+tier = 1
+max_level = 1
+cost_corpses = 10
+cost_bone_dust = 0
+cost_soul_essence = 0
+required_upgrade_id = ""
+required_floor_id = ""
