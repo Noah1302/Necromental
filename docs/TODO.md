@@ -10,7 +10,7 @@
 ## NOW (Phase 2 & 3)
 - [x] Phase 2: Menu & Floor Select Funktionalität
 - [x] Floor Select Screen dynamisch an FloorData anbinden
-- [ ] Phase 3: Save Data & Meta Base (Speichern und Meta-Ressourcen Struktur)
+- [x] Phase 3: Save Data & Meta Base (Speichern und Meta-Ressourcen Struktur)
 
 ## NEXT
 - Phase 4: Core Summoning System (Stationärer Core, Essenz-System, Summoning)

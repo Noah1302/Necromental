@@ -52,6 +52,30 @@ func add_meta_resources(corpses: int, bone_dust: int, soul_essence: int) -> void
 	current_save.save()
 	meta_resources_changed.emit()
 
+func spend_meta_resources(corpses: int, bone_dust: int, soul_essence: int) -> bool:
+	if current_save.meta_corpses >= corpses and current_save.meta_bone_dust >= bone_dust and current_save.meta_soul_essence >= soul_essence:
+		current_save.meta_corpses -= corpses
+		current_save.meta_bone_dust -= bone_dust
+		current_save.meta_soul_essence -= soul_essence
+		current_save.save()
+		meta_resources_changed.emit()
+		return true
+	return false
+
+func purchase_upgrade(upgrade_id: String, cost_corpses: int, cost_bone_dust: int, cost_soul_essence: int) -> bool:
+	if current_save.purchased_upgrades.has(upgrade_id):
+		return false # Already owned
+		
+	if spend_meta_resources(cost_corpses, cost_bone_dust, cost_soul_essence):
+		current_save.purchased_upgrades.append(upgrade_id)
+		current_save.save()
+		return true
+		
+	return false
+
+func has_upgrade(upgrade_id: String) -> bool:
+	return current_save.purchased_upgrades.has(upgrade_id)
+
 func unlock_floor(floor_id: String) -> void:
 	if not current_save.unlocked_floors.has(floor_id):
 		current_save.unlocked_floors.append(floor_id)

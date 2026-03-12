@@ -1,19 +1,18 @@
 # BRANCH NOTES
 
-## Branch: feature/menu-floor-select
+## Branch: feature/save-data-meta-base
 
 **Ziel:**
-Ausbau des Main Menus und Floor Select Screens für dynamische Content-Ladeprozesse anhand der SaveData und FloorData Resources.
+Implementation des Speichersystems für Meta-Ressourcen und Basis-UI ("Ritual Altar") für permanente Upgrades.
 
 **Änderungen:**
-- `FloorData` Instanzen `floor_1.tres`/`floor_2.tres`/`floor_3.tres` angelegt.
-- `GameState` Autoload liest nun `FloorData` ein und prüft Unlocks bei Start.
-- `floor_select.gd` und `main_menu.gd` mit Tween-Animationen (Skalierung/Farbe) aufgewertet.
-- Dynamische Darstellung der Level-Namen im Floor Select eingebaut.
-- Dummy `Arena`-Szene erstellt, zu der man vom Floor Select wechseln kann.
+- `SaveData` mit Logik zum Speichern in `user://save_data.tres` (inklusive Debug Helper).
+- `GameState` erweitert um Transaktionen (`spend_meta_resources`, `purchase_upgrade`).
+- `MetaUpgrade.tscn` erstellt (inkl. Ressourcen-Tracking und Dummy-Upgrades).
+- `MainMenu` Option-Button umgerüstet zum "RITUAL ALTAR" Button, der ins Upgrade Menu führt.
 
 **Teststatus:**
-- Getestet via Play in Godot. Menü-Animationen funktionieren. Logik für gesperrte Floors greift.
+- Getestet via Code Walkthrough. Save- und Load-Cycles wurden eingerichtet.
 
 **Review-/Merge-Hinweise:**
-- Bitte prüfen, ob der Übergang vom Menü in die Arena-Szene so wie gewünscht funktioniert.
+- Bitte in Godot testen: In "Ritual Altar" gehen, "DEBUG: +50 All" drücken, Upgrades kaufen, Spiel schließen und neu starten. Danach wieder prüfen, ob Ressourcen & Upgrades erhalten bleiben.

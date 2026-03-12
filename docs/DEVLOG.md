@@ -10,3 +10,8 @@
   - Dynamische Level-Auswahl via FloorData und GameState.
   - Hover-Tweens für UI-Buttons hinzugefügt.
   - Dummy `Arena` Szene für den Start des Runs angelegt.
+- Phase 2 beendet, gemergt.
+- Phase 3 (Save Data & Meta Base) auf Branch `feature/save-data-meta-base` umgesetzt:
+  - `SaveData` für korrekte Persistence via FileAccess gesichert.
+  - `GameState` Funktionen für Ressourcen-Spenden und Upgrade-Kauf impl.
+  - `MetaUpgrade` Szene ("Ritual Altar") erstellt und ans Main Menu gekoppelt.

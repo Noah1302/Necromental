@@ -1,0 +1,113 @@
+[gd_scene load_steps=3 format=3 uid="uid://metaupgrade123"]
+
+[ext_resource type="Script" path="res://scenes/ui/meta_upgrade/meta_upgrade.gd" id="1_meta"]
+[ext_resource type="PackedScene" uid="uid://panelbase123" path="res://scenes/ui/components/ui_panel_base.tscn" id="2_panel"]
+
+[node name="MetaUpgrade" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_meta")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0588235, 0.0588235, 0.0784314, 1)
+
+[node name="UIPanelBase" parent="." instance=ExtResource("2_panel")]
+layout_mode = 1
+custom_minimum_size = Vector2(800, 600)
+
+[node name="Header" parent="UIPanelBase/Margin/TopLevel" index="0"]
+text = "RITUAL ALTAR"
+
+[node name="Content" parent="UIPanelBase/Margin/TopLevel" index="2"]
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="UIPanelBase/Margin/TopLevel/Content"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 24
+
+[node name="ResourcesHeader" type="HBoxContainer" parent="UIPanelBase/Margin/TopLevel/Content/VBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="CorpsesLabel" type="Label" parent="UIPanelBase/Margin/TopLevel/Content/VBox/ResourcesHeader"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.666667, 0.819608, 0.54902, 1)
+text = "Corpses: 0"
+horizontal_alignment = 1
+
+[node name="BoneDustLabel" type="Label" parent="UIPanelBase/Margin/TopLevel/Content/VBox/ResourcesHeader"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.819608, 0.768627, 0.54902, 1)
+text = "Bone Dust: 0"
+horizontal_alignment = 1
+
+[node name="SoulLabel" type="Label" parent="UIPanelBase/Margin/TopLevel/Content/VBox/ResourcesHeader"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.407843, 0.823529, 0.866667, 1)
+text = "Souls: 0"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="UIPanelBase/Margin/TopLevel/Content/VBox"]
+layout_mode = 2
+
+[node name="UpgradeGrid" type="GridContainer" parent="UIPanelBase/Margin/TopLevel/Content/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 16
+columns = 2
+
+[node name="BtnUpgradeEssence" type="Button" parent="UIPanelBase/Margin/TopLevel/Content/VBox/UpgradeGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(350, 80)
+layout_mode = 2
+text = "+10 Max Essence
+Cost: 10 Corpses"
+
+[node name="BtnUpgradeRegen" type="Button" parent="UIPanelBase/Margin/TopLevel/Content/VBox/UpgradeGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(350, 80)
+layout_mode = 2
+text = "+1 Essence Regen
+Cost: 5 Bone Dust"
+
+[node name="BottomRow" type="HBoxContainer" parent="UIPanelBase/Margin/TopLevel/Content/VBox"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 64
+
+[node name="DebugGrantBtn" type="Button" parent="UIPanelBase/Margin/TopLevel/Content/VBox/BottomRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.352941, 0.352941, 1)
+text = "DEBUG: +50 All"
+
+[node name="BackBtn" type="Button" parent="UIPanelBase/Margin/TopLevel/Content/VBox/BottomRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+text = "RETURN"
+
+[editable path="UIPanelBase"]

@@ -16,7 +16,23 @@ static func load_or_create() -> SaveData:
 		if data:
 			return data
 	
-	return SaveData.new()
+	# Initial creation needs to ensure arrays are valid
+	var new_save = SaveData.new()
+	new_save.unlocked_floors = []
+	new_save.purchased_upgrades = []
+	return new_save
 
 func save() -> void:
+	# Ensure the directory exists
+	var dir = DirAccess.open("user://")
+	if not dir:
+		DirAccess.make_dir_absolute("user://")
+		
 	ResourceSaver.save(self, SAVE_PATH)
+
+# Debug helper
+func debug_grant_resources(amount: int) -> void:
+	meta_corpses += amount
+	meta_bone_dust += amount
+	meta_soul_essence += amount
+	save()
