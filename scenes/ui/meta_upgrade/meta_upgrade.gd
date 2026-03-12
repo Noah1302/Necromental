@@ -86,12 +86,13 @@ func _load_upgrades() -> void:
 					upgrade_dict[res.id] = res
 					print("Loaded upgrade: ", res.id, " at ", res.tree_position)
 				else:
-					print("FAILED to load resource: ", full_path)
+					print("MetaUpgrade: FAILED to load resource: ", full_path)
 			file_name = dir.get_next()
 	else:
-		print("FAILED to open upgrades directory")
+		print("MetaUpgrade: FAILED to open upgrades directory")
 
 func _build_tree() -> void:
+	print("MetaUpgrade: Building tree with ", all_upgrades.size(), " upgrades...")
 	for child in nodes_layer.get_children():
 		child.queue_free()
 	node_dict.clear()
@@ -99,12 +100,15 @@ func _build_tree() -> void:
 	for upg in all_upgrades:
 		var node = TREE_NODE_SCENE.instantiate()
 		node.setup(upg)
+		node.position = upg.tree_position
 		node.node_selected.connect(_on_node_selected)
 		node.node_clicked.connect(func(d): _on_node_selected(d, node); btn_purchase.grab_focus())
 		nodes_layer.add_child(node)
 		node_dict[upg.id] = node
+		print("MetaUpgrade: Spawned node for: ", upg.id, " at ", node.position)
 		
 	lines_layer.queue_redraw()
+	print("MetaUpgrade: Tree build complete.")
 
 func _on_lines_draw() -> void:
 	for upg in all_upgrades:
