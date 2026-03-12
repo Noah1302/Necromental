@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="MetaUpgradeData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/data/meta_upgrade_data.gd" id="1_upg"]
+
+[resource]
+script = ExtResource("1_upg")
+id = "upg_rit_1"
+title = "Dark Chants"
+description = "Unlocks active rituals."
+category = "Essence"
+tier = 1
+max_level = 1
+cost_corpses = 20
+cost_bone_dust = 10
+cost_soul_essence = 5
+parent_ids = Array[String]([\"upg_root\"])
+required_floor_id = ""
+tree_position = Vector2(0, 180)

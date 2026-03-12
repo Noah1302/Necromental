@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="MetaUpgradeData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/data/meta_upgrade_data.gd" id="1_upg"]
+
+[resource]
+script = ExtResource("1_upg")
+id = "upg_harv_4"
+title = "Master Harvester"
+description = "Harvest yields are multiplied."
+category = "Essence"
+tier = 3
+max_level = 1
+cost_corpses = 100
+cost_bone_dust = 80
+cost_soul_essence = 25
+parent_ids = Array[String]([\"upg_harv_2\", \"upg_harv_3\"])
+required_floor_id = ""
+tree_position = Vector2(-480, 0)

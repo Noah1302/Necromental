@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="MetaUpgradeData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/data/meta_upgrade_data.gd" id="1_upg"]
+
+[resource]
+script = ExtResource("1_upg")
+id = "upg_ess_4"
+title = "Void Tear"
+description = "Massive boost to all essence generation."
+category = "Essence"
+tier = 3
+max_level = 1
+cost_corpses = 100
+cost_bone_dust = 50
+cost_soul_essence = 20
+parent_ids = Array[String]([\"upg_ess_2\", \"upg_ess_3\"])
+required_floor_id = ""
+tree_position = Vector2(0, -480)
