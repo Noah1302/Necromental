@@ -7,6 +7,8 @@ const UPGRADES_PATH = "res://data/upgrades/"
 @onready var label_bone: Label = %BoneDustLabel
 @onready var label_soul: Label = %SoulLabel
 
+@onready var debug_info: Label = Label.new() # Dynamic debug label
+
 @onready var tree_viewport: Control = %TreeViewport
 @onready var tree_container: Control = %TreeContainer
 @onready var lines_layer: Control = %LinesLayer
@@ -45,7 +47,12 @@ func _ready() -> void:
 	lines_layer.draw.connect(_on_lines_draw)
 	tree_viewport.gui_input.connect(_on_viewport_gui_input)
 	
+	# Add debug info to top bar
+	%ResourcesHeader.add_child(debug_info)
+	debug_info.modulate = Color(1, 1, 0, 1)
+	
 	_load_upgrades()
+	debug_info.text = "Nodes: " + str(all_upgrades.size())
 	print("MetaUpgrade: Loaded ", all_upgrades.size(), " upgrades")
 	_build_tree()
 	
@@ -136,10 +143,9 @@ func _apply_zoom(factor: float, _mouse_pos: Vector2) -> void:
 	var old_zoom = current_zoom
 	current_zoom = clamp(current_zoom * factor, MIN_ZOOM, MAX_ZOOM)
 	
-	# var _actual_factor = current_zoom / old_zoom
-	
 	var local_mouse = tree_container.get_local_mouse_position()
 	tree_container.scale = Vector2(current_zoom, current_zoom)
+	# Correct zoom-to-mouse-position logic
 	tree_container.position -= local_mouse * (current_zoom - old_zoom)
 	lines_layer.queue_redraw()
 
