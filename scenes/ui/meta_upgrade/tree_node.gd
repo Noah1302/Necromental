@@ -1,13 +1,13 @@
 extends PanelContainer
 
-signal node_selected(upgrade_data: MetaUpgradeData, node_ref: Control)
-signal node_clicked(upgrade_data: MetaUpgradeData)
+signal node_selected(upgrade_data: Resource, node_ref: Control)
+signal node_clicked(upgrade_data: Resource)
 
 @onready var icon_rect: ColorRect = %IconRect
 @onready var icon_texture: TextureRect = %IconTexture
 @onready var highlight_rect: ReferenceRect = %HighlightRect
 
-var data: MetaUpgradeData
+var data: Resource
 var is_ready: bool = false
 
 func _ready() -> void:
@@ -35,7 +35,7 @@ func _ready() -> void:
 	style.corner_radius_bottom_right = 40
 	add_theme_stylebox_override("panel", style)
 
-func setup(upgrade_data: MetaUpgradeData) -> void:
+func setup(upgrade_data: Resource) -> void:
 	data = upgrade_data
 	if is_ready:
 		_setup_visuals()

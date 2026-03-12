@@ -1,0 +1,59 @@
+import os
+
+nodes = [
+    {"id": "upg_root", "title": "Heart of the Altar", "desc": "The central nexus of your necrotic power.", "pos": "(0, 0)", "tier": 0, "parents": [], "cost_c": 0, "cost_b": 0, "cost_s": 0},
+    {"id": "upg_ess_1", "title": "Essence Gathering", "desc": "Increases base soul generation.", "pos": "(0, -180)", "tier": 1, "parents": ["upg_root"], "cost_c": 10, "cost_b": 0, "cost_s": 0},
+    {"id": "upg_ess_2", "title": "Deeper Wells", "desc": "Expands maximum soul capacity.", "pos": "(-120, -320)", "tier": 2, "parents": ["upg_ess_1"], "cost_c": 25, "cost_b": 10, "cost_s": 0},
+    {"id": "upg_ess_3", "title": "Soul Siphon", "desc": "Extract souls directly from enemies.", "pos": "(120, -320)", "tier": 2, "parents": ["upg_ess_1"], "cost_c": 30, "cost_b": 15, "cost_s": 5},
+    {"id": "upg_ess_4", "title": "Void Tear", "desc": "Massive boost to all essence generation.", "pos": "(0, -480)", "tier": 3, "parents": ["upg_ess_2", "upg_ess_3"], "cost_c": 100, "cost_b": 50, "cost_s": 20},
+    {"id": "upg_min_1", "title": "Bone Assembly", "desc": "Unlocks basic skeleton summoning.", "pos": "(180, 0)", "tier": 1, "parents": ["upg_root"], "cost_c": 15, "cost_b": 5, "cost_s": 0},
+    {"id": "upg_min_2", "title": "Reinforced Marrow", "desc": "Skeletons have more health.", "pos": "(320, -120)", "tier": 2, "parents": ["upg_min_1"], "cost_c": 30, "cost_b": 20, "cost_s": 0},
+    {"id": "upg_min_3", "title": "Horde Tactics", "desc": "Increase maximum skeleton cap.", "pos": "(320, 120)", "tier": 2, "parents": ["upg_min_1"], "cost_c": 40, "cost_b": 25, "cost_s": 0},
+    {"id": "upg_min_4", "title": "Undead Lord", "desc": "Skeletons deal splash damage.", "pos": "(480, 0)", "tier": 3, "parents": ["upg_min_2", "upg_min_3"], "cost_c": 150, "cost_b": 100, "cost_s": 30},
+    {"id": "upg_harv_1", "title": "Scythe Sharpening", "desc": "Increase your own harvest damage.", "pos": "(-180, 0)", "tier": 1, "parents": ["upg_root"], "cost_c": 10, "cost_b": 5, "cost_s": 0},
+    {"id": "upg_harv_2", "title": "Flesh Rending", "desc": "Chance to drop extra corpses.", "pos": "(-320, -120)", "tier": 2, "parents": ["upg_harv_1"], "cost_c": 20, "cost_b": 10, "cost_s": 0},
+    {"id": "upg_harv_3", "title": "Bone Collector", "desc": "Chance to drop extra bone dust.", "pos": "(-320, 120)", "tier": 2, "parents": ["upg_harv_1"], "cost_c": 20, "cost_b": 10, "cost_s": 0},
+    {"id": "upg_harv_4", "title": "Master Harvester", "desc": "Harvest yields are multiplied.", "pos": "(-480, 0)", "tier": 3, "parents": ["upg_harv_2", "upg_harv_3"], "cost_c": 100, "cost_b": 80, "cost_s": 25},
+    {"id": "upg_rit_1", "title": "Dark Chants", "desc": "Unlocks active rituals.", "pos": "(0, 180)", "tier": 1, "parents": ["upg_root"], "cost_c": 20, "cost_b": 10, "cost_s": 5},
+    {"id": "upg_rit_2", "title": "Blood Sacrifice", "desc": "Sacrifice corpses for temporary power.", "pos": "(0, 320)", "tier": 2, "parents": ["upg_rit_1"], "cost_c": 50, "cost_b": 20, "cost_s": 10},
+]
+
+template = """[gd_resource type="Resource" script_class="MetaUpgradeData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/data/meta_upgrade_data.gd" id="1_upg"]
+
+[resource]
+script = ExtResource("1_upg")
+id = "{id}"
+title = "{title}"
+description = "{desc}"
+category = "Essence"
+tier = {tier}
+max_level = 1
+cost_corpses = {cost_c}
+cost_bone_dust = {cost_b}
+cost_soul_essence = {cost_s}
+parent_ids = Array[String]({parents_str})
+required_floor_id = ""
+tree_position = Vector2{pos}
+"""
+
+os.makedirs("data/upgrades", exist_ok=True)
+
+for n in nodes:
+    parents_arr = ", ".join([f'"{p}"' for p in n["parents"]])
+    content = template.format(
+        id=n["id"],
+        title=n["title"],
+        desc=n["desc"],
+        tier=n["tier"],
+        cost_c=n["cost_c"],
+        cost_b=n["cost_b"],
+        cost_s=n["cost_s"],
+        parents_str="[" + parents_arr + "]" if n["parents"] else "[]",
+        pos=n["pos"]
+    )
+    with open(f"data/upgrades/{n['id']}.tres", "w") as f:
+        f.write(content)
+
+print(f"Generated {len(nodes)} upgrades.")

@@ -85,7 +85,7 @@ visible = false
 text = "RITUAL ALTAR"
 theme_override_colors/font_color = Color(0.8, 0.6, 0.9, 1)
 
-[node name="TitleSeparator" parent="UIPanelBase/Margin/TopLevel" index="1"]
+[node name="HSeparator" parent="UIPanelBase/Margin/TopLevel" index="1"]
 visible = false
 
 [node name="Content" parent="UIPanelBase/Margin/TopLevel" index="2"]

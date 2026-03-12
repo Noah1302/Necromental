@@ -22,11 +22,11 @@ const UPGRADES_PATH = "res://data/upgrades/"
 @onready var btn_debug: Button = %DebugGrantBtn
 @onready var btn_center: Button = %CenterCanvas
 
-var all_upgrades: Array[MetaUpgradeData] = []
+var all_upgrades: Array = []
 var upgrade_dict: Dictionary = {}
 var node_dict: Dictionary = {}
 
-var selected_upgrade: MetaUpgradeData
+var selected_upgrade: Resource
 var active_node: Control
 
 var is_panning: bool = false
@@ -46,6 +46,7 @@ func _ready() -> void:
 	tree_viewport.gui_input.connect(_on_viewport_gui_input)
 	
 	_load_upgrades()
+	print("MetaUpgrade: Loaded ", all_upgrades.size(), " upgrades")
 	_build_tree()
 	
 	_update_resources()
@@ -54,22 +55,34 @@ func _ready() -> void:
 	btn_back.grab_focus()
 	
 	# Delay center so layout sizes are correct
-	call_deferred("_on_center_pressed")
+	await get_tree().process_frame
+	_on_center_pressed()
 
 func _load_upgrades() -> void:
 	all_upgrades.clear()
 	upgrade_dict.clear()
+	
+	if not DirAccess.dir_exists_absolute(UPGRADES_PATH):
+		print("ERROR: Upgrades path not found: ", UPGRADES_PATH)
+		return
+		
 	var dir = DirAccess.open(UPGRADES_PATH)
 	if dir:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
 			if not dir.current_is_dir() and file_name.ends_with(".tres"):
-				var res = ResourceLoader.load(UPGRADES_PATH + file_name) as MetaUpgradeData
+				var full_path = UPGRADES_PATH + file_name
+				var res = ResourceLoader.load(full_path)
 				if res:
 					all_upgrades.append(res)
 					upgrade_dict[res.id] = res
+					print("Loaded upgrade: ", res.id, " at ", res.tree_position)
+				else:
+					print("FAILED to load resource: ", full_path)
 			file_name = dir.get_next()
+	else:
+		print("FAILED to open upgrades directory")
 
 func _build_tree() -> void:
 	for child in nodes_layer.get_children():
@@ -117,16 +130,18 @@ func _on_viewport_gui_input(event: InputEvent) -> void:
 			
 	elif event is InputEventMouseMotion and is_panning:
 		tree_container.position += event.relative
+		lines_layer.queue_redraw()
 
-func _apply_zoom(factor: float, mouse_pos: Vector2) -> void:
+func _apply_zoom(factor: float, _mouse_pos: Vector2) -> void:
 	var old_zoom = current_zoom
 	current_zoom = clamp(current_zoom * factor, MIN_ZOOM, MAX_ZOOM)
 	
-	var actual_factor = current_zoom / old_zoom
+	# var _actual_factor = current_zoom / old_zoom
 	
 	var local_mouse = tree_container.get_local_mouse_position()
 	tree_container.scale = Vector2(current_zoom, current_zoom)
 	tree_container.position -= local_mouse * (current_zoom - old_zoom)
+	lines_layer.queue_redraw()
 
 func _on_center_pressed() -> void:
 	current_zoom = 1.0
@@ -141,7 +156,7 @@ func _on_center_pressed() -> void:
 			
 	tree_container.position = (viewport_size / 2.0) + offset
 
-func _on_node_selected(data: MetaUpgradeData, node: Control) -> void:
+func _on_node_selected(data: Resource, node: Control) -> void:
 	if active_node and is_instance_valid(active_node) and active_node.has_method("set_active"):
 		active_node.set_active(false)
 		
@@ -152,7 +167,7 @@ func _on_node_selected(data: MetaUpgradeData, node: Control) -> void:
 	
 	_populate_details(data)
 
-func _populate_details(data: MetaUpgradeData) -> void:
+func _populate_details(data: Resource) -> void:
 	detail_title.text = data.title
 	detail_desc.text = data.description
 	
