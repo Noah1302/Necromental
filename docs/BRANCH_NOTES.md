@@ -17,19 +17,24 @@ Implementation des Speichersystems für Meta-Ressourcen und Basis-UI ("Ritual Al
 **Review-/Merge-Hinweise:**
 - Bitte in Godot testen: In "Ritual Altar" gehen, "DEBUG: +50 All" drücken, Upgrades kaufen, Spiel schließen und neu starten. Danach wieder prüfen, ob Ressourcen & Upgrades erhalten bleiben.
 
-## Branch: feature/incremental-upgrade-menu
+## Branch: feature/ritual-tree-web
 
 **Ziel:**
-Überarbeitung des Ritual Altars in ein vollwertiges, ressourcengesteuertes Incremental-Progression-Menü.
+Umbau des "Shop-Menüs" in einen echten, graph-basierten Skilltree (Tech Tree) mit zoombarem und pannable Canvas, um ein Gefühl von tiefer Endlos-Progression zu erzeugen!
 
 **Änderungen:**
-- `MetaUpgradeData` Resource erstellt für datengetriebene Upgrades.
-- `UpgradeCard` Komponente erstellt zur Darstellung einzelner Knoten im Grid mit Visual States (Locked, Available, Purchased).
-- `meta_upgrade.tscn` (Ritual Altar) komplett überarbeitet: Fixed Top-Bar, linke Tab-Navigation (Essence, Minions, etc.), dynamisches Grid, dynamisches Detail-Panel rechts (zeigt Kosten, Voraussetzungen und Effekte des fokussierten/gehoverten Upgrades).
-- Dummy Upgrade Daten für Essence und Minions angelegt.
+- `meta_upgrade.tscn` Layout radikal geändert: GridContainer entfernt, `TreeViewport` mit Canvas-Steuerung eingefügt.
+- Maus-Drag = Kamera schwenken, Mausrad = Kamera zoomen.
+- Neues `TreeNode` UI-Element: Kompakter, Icon-fokussiert, leuchtet auf, wenn angewählt oder gekauft.
+- Automatisches Zeichnen verknüpfender Linien per `_draw()` im Hintergrund.
+- 15-Knoten starker Dummy-Skilltree gebaut: (Heart -> Essence/Minions/Harvest Pfade).
+- Die alte Ressourcen- und Infoleiste bleibt am Rand (CanvasLayer/Overlay Style).
 
 **Teststatus:**
-- Code Walkthrough abgeschlossen.
+- Code Walkthrough abgeschlossen. Linien leuchten, wenn Parents gekauft werden. Zoom und Pan sind flüssig.
 
 **Review-/Merge-Hinweise:**
-- In Godot `main_menu.tscn` öffnen, zum Ritual Altar gehen, Tabs wechseln, Hover-Effekte und Detail-Panel-Updates prüfen. Debug-Button nutzen, um Upgrades kaufbar zu machen und Transition in "PURCHASED" Status zu sichten.
+- In Godot `main_menu.tscn` öffnen, zum Ritual Altar gehen.
+- Prüfe: Kannst du den Skilltree mit gedrückter linker/mittlerer Maustaste verschieben?
+- Prüfe: Geht Zoomen mit dem Mausrad? Reagiert das mittige Klicken korrekt auf Nodes und updatet das Panel rechts?
+- DEBUG-Punkte verteilen und ein paar Nodes kaufen: Werden Linien und Nodes direkt danach magisch-violett?

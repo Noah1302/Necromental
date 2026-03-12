@@ -32,7 +32,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_meta")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="BgRect" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -41,6 +41,34 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.04, 0.04, 0.05, 1)
 
+[node name="TreeViewport" type="Control" parent="."]
+unique_name_in_owner = true
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TreeContainer" type="Control" parent="TreeViewport"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 0
+mouse_filter = 2
+
+[node name="LinesLayer" type="Control" parent="TreeViewport/TreeContainer"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 0
+mouse_filter = 2
+
+[node name="NodesLayer" type="Control" parent="TreeViewport/TreeContainer"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 0
+mouse_filter = 2
+
 [node name="UIPanelBase" parent="." instance=ExtResource("2_panel")]
 layout_mode = 1
 anchors_preset = 15
@@ -48,18 +76,22 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-offset_left = 40.0
-offset_top = 40.0
-offset_right = -40.0
-offset_bottom = -40.0
+mouse_filter = 2
+
+[node name="Background" parent="UIPanelBase" index="0"]
+visible = false
 
 [node name="Header" parent="UIPanelBase/Margin/TopLevel" index="0"]
 text = "RITUAL ALTAR"
 theme_override_colors/font_color = Color(0.8, 0.6, 0.9, 1)
 
+[node name="TitleSeparator" parent="UIPanelBase/Margin/TopLevel" index="1"]
+visible = false
+
 [node name="Content" parent="UIPanelBase/Margin/TopLevel" index="2"]
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 2
 
 [node name="VBox" type="VBoxContainer" parent="UIPanelBase/Margin/TopLevel/Content"]
 layout_mode = 1
@@ -68,6 +100,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_constants/separation = 16
 
 [node name="TopBar" type="PanelContainer" parent="UIPanelBase/Margin/TopLevel/Content/VBox"]
@@ -137,38 +170,12 @@ text = "Souls: 0"
 [node name="MainContent" type="HBoxContainer" parent="UIPanelBase/Margin/TopLevel/Content/VBox"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/separation = 24
+mouse_filter = 2
 
-[node name="LeftNav" type="PanelContainer" parent="UIPanelBase/Margin/TopLevel/Content/VBox/MainContent"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_bg")
-
-[node name="Margin" type="MarginContainer" parent="UIPanelBase/Margin/TopLevel/Content/VBox/MainContent/LeftNav"]
-layout_mode = 2
-theme_override_constants/margin_left = 12
-theme_override_constants/margin_top = 12
-theme_override_constants/margin_right = 12
-theme_override_constants/margin_bottom = 12
-
-[node name="CategoryContainer" type="VBoxContainer" parent="UIPanelBase/Margin/TopLevel/Content/VBox/MainContent/LeftNav/Margin"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_constants/separation = 12
-
-[node name="CenterTree" type="ScrollContainer" parent="UIPanelBase/Margin/TopLevel/Content/VBox/MainContent"]
+[node name="Spacer" type="Control" parent="UIPanelBase/Margin/TopLevel/Content/VBox/MainContent"]
 layout_mode = 2
 size_flags_horizontal = 3
-horizontal_scroll_mode = 0
-
-[node name="UpgradeGrid" type="GridContainer" parent="UIPanelBase/Margin/TopLevel/Content/VBox/MainContent/CenterTree"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/h_separation = 24
-theme_override_constants/v_separation = 24
-columns = 2
+mouse_filter = 2
 
 [node name="RightDetail" type="PanelContainer" parent="UIPanelBase/Margin/TopLevel/Content/VBox/MainContent"]
 custom_minimum_size = Vector2(300, 0)
@@ -249,6 +256,12 @@ text = "DEBUG: +50 All"
 [node name="Spacer" type="Control" parent="UIPanelBase/Margin/TopLevel/Content/VBox/BottomRow"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="CenterCanvas" type="Button" parent="UIPanelBase/Margin/TopLevel/Content/VBox/BottomRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 40)
+layout_mode = 2
+text = "RE-CENTER"
 
 [node name="BackBtn" type="Button" parent="UIPanelBase/Margin/TopLevel/Content/VBox/BottomRow"]
 unique_name_in_owner = true

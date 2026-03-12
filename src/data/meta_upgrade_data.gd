@@ -16,12 +16,13 @@ var category: String = "Essence"
 @export var cost_bone_dust: int = 0
 @export var cost_soul_essence: int = 0
 
-@export_group("Requirements")
-@export var required_upgrade_id: String = ""
+@export_group("Tree Requirements")
+@export var parent_ids: Array[String] = []
 @export var required_floor_id: String = ""
 
 # Visuals
 @export var icon: Texture2D
+@export var tree_position: Vector2 = Vector2.ZERO
 
 func is_purchased() -> bool:
 	return GameState.has_upgrade(id)
@@ -29,8 +30,14 @@ func is_purchased() -> bool:
 func is_locked() -> bool:
 	var save = GameState.current_save
 	
-	if required_upgrade_id != "" and not save.purchased_upgrades.has(required_upgrade_id):
-		return true
+	if parent_ids.size() > 0:
+		var has_any_parent = false
+		for pid in parent_ids:
+			if save.purchased_upgrades.has(pid):
+				has_any_parent = true
+				break
+		if not has_any_parent:
+			return true
 		
 	if required_floor_id != "" and not save.unlocked_floors.has(required_floor_id):
 		return true
