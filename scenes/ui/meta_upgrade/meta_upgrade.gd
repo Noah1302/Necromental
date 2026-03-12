@@ -63,7 +63,7 @@ func _setup_category_tabs() -> void:
 		var btn = Button.new()
 		btn.text = cat
 		btn.custom_minimum_size = Vector2(0, 40)
-		btn.theme_override_font_sizes.font_size = 18
+		btn.add_theme_font_size_override("font_size", 18)
 		
 		var normal_style = StyleBoxFlat.new()
 		normal_style.bg_color = Color(0.15, 0.15, 0.2)
@@ -175,7 +175,6 @@ func _on_purchase_pressed() -> void:
 				for c in upgrade_grid.get_children():
 					if c.data.id == cache_upg.id:
 						_on_card_selected(cache_upg, c)
-						btn_purchase.grab_focus()
 						btn_purchase.grab_focus()
 
 func _on_resources_changed() -> void:
