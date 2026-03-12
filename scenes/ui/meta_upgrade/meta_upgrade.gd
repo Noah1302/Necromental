@@ -168,10 +168,14 @@ func _clear_details() -> void:
 func _on_purchase_pressed() -> void:
 	if selected_upgrade and not selected_upgrade.is_purchased() and selected_upgrade.can_afford():
 		if GameState.purchase_upgrade(selected_upgrade.id, selected_upgrade.cost_corpses, selected_upgrade.cost_bone_dust, selected_upgrade.cost_soul_essence):
+			var cache_upg = selected_upgrade
+			_build_grid(current_category) # Refresh visually
+			# Re-select
 			if cache_upg:
 				for c in upgrade_grid.get_children():
 					if c.data.id == cache_upg.id:
 						_on_card_selected(cache_upg, c)
+						btn_purchase.grab_focus()
 						btn_purchase.grab_focus()
 
 func _on_resources_changed() -> void:
