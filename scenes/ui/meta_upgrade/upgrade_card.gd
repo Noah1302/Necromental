@@ -9,15 +9,45 @@ signal card_clicked(upgrade_data: MetaUpgradeData)
 @onready var highlight_rect: ReferenceRect = %HighlightRect
 
 var data: MetaUpgradeData
+var is_ready: bool = false
+
+func _ready() -> void:
+	is_ready = true
+	if data:
+		_setup_visuals()
+	
+	mouse_entered.connect(_on_focus)
+	mouse_exited.connect(_on_unfocus)
+	focus_entered.connect(_on_focus)
+	focus_exited.connect(_on_unfocus)
+	
+	pivot_offset = custom_minimum_size / 2.0
+	
+	# Default styling
+	var style = StyleBoxFlat.new()
+	style.bg_color = Color(0.1, 0.1, 0.12, 1.0)
+	style.border_width_left = 2
+	style.border_width_top = 2
+	style.border_width_right = 2
+	style.border_width_bottom = 2
+	style.border_color = Color(0.2, 0.2, 0.25, 1.0)
+	style.corner_radius_top_left = 8
+	style.corner_radius_top_right = 8
+	style.corner_radius_bottom_left = 8
+	style.corner_radius_bottom_right = 8
+	add_theme_stylebox_override("panel", style)
 
 func setup(upgrade_data: MetaUpgradeData) -> void:
 	data = upgrade_data
+	if is_ready:
+		_setup_visuals()
+
+func _setup_visuals() -> void:
 	title_label.text = data.title
-	
 	_update_visuals()
 
 func _update_visuals() -> void:
-	if not data:
+	if not data or not is_ready:
 		return
 		
 	var is_locked = data.is_locked()
@@ -46,27 +76,7 @@ func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		card_clicked.emit(data)
 
-func _ready() -> void:
-	mouse_entered.connect(_on_focus)
-	mouse_exited.connect(_on_unfocus)
-	focus_entered.connect(_on_focus)
-	focus_exited.connect(_on_unfocus)
-	
-	pivot_offset = custom_minimum_size / 2.0
-	
-	# Default styling
-	var style = StyleBoxFlat.new()
-	style.bg_color = Color(0.1, 0.1, 0.12, 1.0)
-	style.border_width_left = 2
-	style.border_width_top = 2
-	style.border_width_right = 2
-	style.border_width_bottom = 2
-	style.border_color = Color(0.2, 0.2, 0.25, 1.0)
-	style.corner_radius_top_left = 8
-	style.corner_radius_top_right = 8
-	style.corner_radius_bottom_left = 8
-	style.corner_radius_bottom_right = 8
-	add_theme_stylebox_override("panel", style)
+
 
 func _on_focus() -> void:
 	highlight_rect.visible = true
