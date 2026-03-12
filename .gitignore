@@ -1,0 +1,14 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+
+# Godot-specific ignores
+*.import
+export_preset.cfg
+
+# Mono-specific ignores
+.mono/
+*.csproj
+*.sln
+*.swp
+*.lock
