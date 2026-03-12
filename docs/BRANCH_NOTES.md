@@ -1,17 +1,19 @@
 # BRANCH NOTES
 
-## Branch: feature/project-foundation
+## Branch: feature/menu-floor-select
 
 **Ziel:**
-Aufbau der Grundstruktur des Projekts (Dokumentation, Architektur, UI Basis-Szenen, Kern-Datenstrukturen)
+Ausbau des Main Menus und Floor Select Screens für dynamische Content-Ladeprozesse anhand der SaveData und FloorData Resources.
 
 **Änderungen:**
-- `docs/` hinzugefügt (PROJECT_OVERVIEW, ARCHITECTURE, ROADMAP, DEVLOG, TODO, BRANCH_NOTES)
-- Basis-Struktur (Scenes, Scripts, Resources) angelegt *(in Arbeit)*
-- `GameState` Autoload *(in Arbeit)*
+- `FloorData` Instanzen `floor_1.tres`/`floor_2.tres`/`floor_3.tres` angelegt.
+- `GameState` Autoload liest nun `FloorData` ein und prüft Unlocks bei Start.
+- `floor_select.gd` und `main_menu.gd` mit Tween-Animationen (Skalierung/Farbe) aufgewertet.
+- Dynamische Darstellung der Level-Namen im Floor Select eingebaut.
+- Dummy `Arena`-Szene erstellt, zu der man vom Floor Select wechseln kann.
 
 **Teststatus:**
-- (Noch keine Gameplay-Tests, nur Szenen-Ladefähigkeit)
+- Getestet via Play in Godot. Menü-Animationen funktionieren. Logik für gesperrte Floors greift.
 
 **Review-/Merge-Hinweise:**
-- Bitte prüfen, ob die Struktur der Resources (FloorData, SaveData) wie gewünscht erweiterbar ist.
+- Bitte prüfen, ob der Übergang vom Menü in die Arena-Szene so wie gewünscht funktioniert.

@@ -7,11 +7,13 @@
 - [ ] Build MainMenu.tscn
 - [ ] Build FloorSelect.tscn
 
-## NEXT
-- Phase 2: Menu & Floor Select functionality
+## NOW (Phase 2 & 3)
+- [x] Phase 2: Menu & Floor Select Funktionalität
+- [x] Floor Select Screen dynamisch an FloorData anbinden
+- [ ] Phase 3: Save Data & Meta Base (Speichern und Meta-Ressourcen Struktur)
 
-## LATER
-- Core Summoning System
+## NEXT
+- Phase 4: Core Summoning System (Stationärer Core, Essenz-System, Summoning)
 - Enemy AI
 - Boss Logic
 - Meta Progression Shop

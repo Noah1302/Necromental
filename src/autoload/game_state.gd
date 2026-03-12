@@ -9,14 +9,37 @@ var run_essence: int = 0
 var run_max_essence: int = 100
 var current_floor_id: String = ""
 
+var available_floors: Dictionary = {}
+
 func _ready() -> void:
+	_load_floor_data()
+	
 	# Lade die Speicherdaten beim Start
 	current_save = SaveData.load_or_create()
 	
-	# Floor 1 standardmäßig freischalten, wenn es keine gibt
+	# Initial unlock handling
+	_handle_default_unlocks()
+
+func _load_floor_data() -> void:
+	# In a real game, you might want to read a directory, but hardcoding for Phase 2 is safer
+	var f1 = load("res://data/floors/floor_1.tres") as FloorData
+	var f2 = load("res://data/floors/floor_2.tres") as FloorData
+	var f3 = load("res://data/floors/floor_3.tres") as FloorData
+	
+	if f1: available_floors[f1.floor_id] = f1
+	if f2: available_floors[f2.floor_id] = f2
+	if f3: available_floors[f3.floor_id] = f3
+
+func _handle_default_unlocks() -> void:
+	for floor_id in available_floors.keys():
+		var fd = available_floors[floor_id] as FloorData
+		if fd.is_unlocked_by_default and not current_save.unlocked_floors.has(floor_id):
+			current_save.unlocked_floors.append(floor_id)
+			
 	if current_save.unlocked_floors.is_empty():
+		# Fallback just in case
 		current_save.unlocked_floors.append("floor_1")
-		current_save.save()
+	current_save.save()
 
 func save_game() -> void:
 	if current_save:

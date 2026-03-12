@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="FloorData" load_steps=2 format=3 uid="uid://floor2data123"]
+
+[ext_resource type="Script" path="res://src/data/floor_data.gd" id="1_data"]
+
+[resource]
+script = ExtResource("1_data")
+floor_id = "floor_2"
+floor_name = "Bone Vaults"
+is_unlocked_by_default = false
+enemy_kill_threshold = 60
+essence_reward_base = 250

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="FloorData" load_steps=2 format=3 uid="uid://floor1data123"]
+
+[ext_resource type="Script" path="res://src/data/floor_data.gd" id="1_data"]
+
+[resource]
+script = ExtResource("1_data")
+floor_id = "floor_1"
+floor_name = "The Crypts"
+is_unlocked_by_default = true
+enemy_kill_threshold = 40
+essence_reward_base = 100
