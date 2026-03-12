@@ -13,6 +13,6 @@ max_level = 1
 cost_corpses = 40
 cost_bone_dust = 25
 cost_soul_essence = 0
-parent_ids = Array[String]([\"upg_min_1\"])
+parent_ids = Array[String](["upg_min_1"])
 required_floor_id = ""
 tree_position = Vector2(320, 120)
